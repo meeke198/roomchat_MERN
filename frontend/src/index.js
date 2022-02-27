@@ -10,18 +10,23 @@ import PublicRoute from "./routers/Public";
 import JoinRoomContainer from "./pages/JoinRoom/JoinRoom";
 import LoginContainer from "./pages/Login/Login";
 import HomeContainer from "./pages/Home/Home";
+import NotFound from "./pages/NotFound/NotFound"
 
 ReactDOM.render(
   <BrowserRouter>
-    <React.StrictMode>
-      <Routes>
-        <Route exact path="/" element={<PrivateRoute />}>
-          <Route exact path="/join-room" element={<JoinRoomContainer />} />
-        </Route>
-        <Route path="/login" element={<LoginContainer />} />
-        <Route path="/home" element={<HomeContainer />} />
-      </Routes>
-    </React.StrictMode>
+    <div className="w-screen h-screen">
+      <React.StrictMode>
+        <Routes>
+          <Route path="*" element={<NotFound />} />
+          <Route exact path="/" element={<PrivateRoute />}>
+            <Route exact path="/join-room" element={<JoinRoomContainer />} />
+          </Route>
+          <Route path="/login" element={<LoginContainer />} />
+          <Route path="/home" element={<HomeContainer />} />
+          <Route />
+        </Routes>
+      </React.StrictMode>
+    </div>
   </BrowserRouter>,
   document.getElementById("root")
 );
