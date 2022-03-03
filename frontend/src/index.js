@@ -1,12 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
 // import reportWebVitals from "./reportWebVitals";
 import "antd/dist/antd.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./routers/Private";
-import PublicRoute from "./routers/Public";
 import JoinRoomContainer from "./pages/JoinRoom/JoinRoom";
 import LoginContainer from "./pages/Login/Login";
 import HomeContainer from "./pages/Home/Home";
