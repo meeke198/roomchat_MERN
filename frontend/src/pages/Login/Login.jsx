@@ -6,24 +6,45 @@ import PWDRequisite from './PWDRequisite'
 function Login(props) {
   const [password, setPassword] = useState("");
   const [pwdRequisite, setPWDRequisite] = useState(false);
-  
+  const [checks, setChecks] = useState({
+    capsLetterCheck: false,
+    numberCheck: false,
+    pwdLengthCheck: false,
+    specialCharCheck: false,
+  })
 
   const handleOnChange = (e) => {
     setPassword(e.target.value);
   }
 
-  const handleFocus = () => {
-    setPWDRequisite(true)
-  }
+  // const handleFocus = () => {
+  //   setPWDRequisite(true)
+  // }
 
   const handleOnBlur = () => {
     setPWDRequisite(false)
   }
 
   const handleOnKeyUp = (e) => {
-    console.log("e", e)
+    const {value} = e.target;
+    const capsLetterCheck = /[A-Z]/.test(value);
+    const numberCheck = /[0-9]/.test(value);
+    const pwdLengthCheck = value.length >= 8;
+    const specialCharCheck = /[!@#$%^&*]/.test(value)
+     setChecks({
+       capsLetterCheck: capsLetterCheck,
+       numberCheck: numberCheck,
+       pwdLengthCheck: pwdLengthCheck,
+       specialCharCheck: specialCharCheck,
+     });
+     if(e.key === 'Shift'){
+       setPWDRequisite(true);
+     }
   }
 
+  // const handleOnEnter = () => {
+  //    setPWDRequisite(true);
+  // }
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -75,7 +96,7 @@ function Login(props) {
                 type="text"
                 value={password}
                 onChange={handleOnChange}
-                onFocus={handleFocus}
+                // onFocus={handleFocus}
                 onBlur={handleOnBlur}
                 onKeyUp={handleOnKeyUp}
                 autoComplete="current-password"
@@ -84,7 +105,11 @@ function Login(props) {
                 placeholder="Password"
               />
             </div>
-            {pwdRequisite ? <PWDRequisite/> : null}
+            {pwdRequisite ? <PWDRequisite 
+            capsLetterFlag={checks.capsLetterCheck ? "valid" : "invalid"} 
+            numberFlag={checks.numberCheck ? "valid" : "invalid"} 
+            pwdLengthFlag={checks.pwdLengthCheck ? "valid" : "invalid"} 
+            specialCharFlag={checks.specialCharCheck ? "valid" : "invalid"} /> : null}
           </div>
 
           <div className="flex items-center justify-between">

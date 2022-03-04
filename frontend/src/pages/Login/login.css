@@ -26,3 +26,11 @@
 .reasons {
     margin-top: 3px;
 }
+
+.valid{
+    display: none;
+}
+
+.invalid {
+    color: red;
+}
