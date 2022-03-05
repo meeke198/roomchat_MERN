@@ -1,7 +1,6 @@
 import "./login.css";
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import PWDRequisite from './PWDRequisite'
-
 
 function Login(props) {
   const [password, setPassword] = useState("");
@@ -13,16 +12,36 @@ function Login(props) {
     specialCharCheck: false,
   })
 
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const [ allowSubmit, setAllowSubmit ] = useState(false)
+
   const handleOnChange = (e) => {
     setPassword(e.target.value);
   }
+  const handleEmailOnChange = (e) => {
+    setEmail(e.target.value);
+  }
+  const handleEmailOnKeyUp = (e) => {
+    
+      emailValidation();
+    
+  }
 
-  // const handleFocus = () => {
-  //   setPWDRequisite(true)
-  // }
+
+  const emailValidation = () => {
+    const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+    if (!regEx.test(email) && email !== "") {
+      setMessage("Email is Not Valid");
+    } else {
+      setMessage("");
+    }
+  };
 
   const handleOnBlur = () => {
     setPWDRequisite(false)
+    setMessage("")
   }
 
   const handleOnKeyUp = (e) => {
@@ -37,14 +56,31 @@ function Login(props) {
        pwdLengthCheck: pwdLengthCheck,
        specialCharCheck: specialCharCheck,
      });
-     if(e.key === 'Shift'){
-       setPWDRequisite(true);
-     }
+      setPWDRequisite(true);
   }
 
-  // const handleOnEnter = () => {
-  //    setPWDRequisite(true);
-  // }
+
+  const checkAllowSubmit = () => {
+      if (
+        checks.capsLetterCheck &&
+        checks.numberCheck &&
+        checks.pwdLengthCheck &&
+        checks.specialCharCheck &&
+        message === ""
+      ) {
+        setAllowSubmit(true);
+      } else {
+        setAllowSubmit(false);
+      }
+ 
+  }
+
+
+  useEffect(() => {
+    checkAllowSubmit();
+  }, [message, checks]);
+
+
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -79,6 +115,10 @@ function Login(props) {
                 autoFocus
                 id="email-address"
                 name="email"
+                value={email}
+                onChange={handleEmailOnChange}
+                onKeyUp={handleEmailOnKeyUp}
+                onBlur={handleOnBlur}
                 type="email"
                 autoComplete="email"
                 required
@@ -86,6 +126,7 @@ function Login(props) {
                 placeholder="Email address"
               />
             </div>
+            <p className="text-red-600">{message}</p>
             <div>
               <label htmlFor="password" className="sr-only">
                 Password
@@ -105,11 +146,14 @@ function Login(props) {
                 placeholder="Password"
               />
             </div>
-            {pwdRequisite ? <PWDRequisite 
-            capsLetterFlag={checks.capsLetterCheck ? "valid" : "invalid"} 
-            numberFlag={checks.numberCheck ? "valid" : "invalid"} 
-            pwdLengthFlag={checks.pwdLengthCheck ? "valid" : "invalid"} 
-            specialCharFlag={checks.specialCharCheck ? "valid" : "invalid"} /> : null}
+            {pwdRequisite ? (
+              <PWDRequisite
+                capsLetterFlag={checks.capsLetterCheck ? true : false}
+                numberFlag={checks.numberCheck ? true : false}
+                pwdLengthFlag={checks.pwdLengthCheck ? true : false}
+                specialCharFlag={checks.specialCharCheck ? true : false}
+              />
+            ) : null}
           </div>
 
           <div className="flex items-center justify-between">
@@ -143,7 +187,12 @@ function Login(props) {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              /*hover:bg-indigo-700 */
+              className={`${
+                allowSubmit
+                  ? "bg-indigo-700"
+                  : "bg-gray-300 pointer-events-none"
+              } group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 {/* Heroicon name: solid/lock-closed */}
