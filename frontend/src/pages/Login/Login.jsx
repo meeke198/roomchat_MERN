@@ -1,6 +1,7 @@
 import "./login.css";
 import {useState, useEffect} from 'react';
-import PWDRequisite from './PWDRequisite'
+import PWDRequisite from './PWDRequisite';
+import api from "../../api/index"
 
 function Login(props) {
   const [password, setPassword] = useState("");
@@ -75,6 +76,11 @@ function Login(props) {
  
   }
 
+const handleOnSubmit = async (e) => {
+  e.preventDefault(); 
+  const result = await api.login(email, password);
+  console.log("result", result)
+}
 
   useEffect(() => {
     checkAllowSubmit();
@@ -104,7 +110,10 @@ function Login(props) {
             </a>
           </p>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        <form
+          className="mt-8 space-y-6"
+          onSubmit={handleOnSubmit}
+        >
           <input type="hidden" name="remember" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
