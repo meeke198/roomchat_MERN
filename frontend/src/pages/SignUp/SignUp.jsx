@@ -1,68 +1,84 @@
-import "./login.css";
+import "./signup.css";
 import {useState, useEffect} from 'react';
-import PWDRequisite from './PWDRequisite';
-import api from "../../api/index"
 import { Link } from "react-router-dom";
+import PWDRequisite from '../Login/PWDRequisite';
+import api from "../../api/index"
 
-function Login(props) {
+function SignUp(props) {
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [pwdRequisite, setPWDRequisite] = useState(false);
   const [checks, setChecks] = useState({
     capsLetterCheck: false,
     numberCheck: false,
     pwdLengthCheck: false,
     specialCharCheck: false,
-  });
+  })
 
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [confirmPasswordMessage, setConfirmPasswordMessage] = useState("");
+ const [allowSubmit, setAllowSubmit] = useState(false);
 
-  const [allowSubmit, setAllowSubmit] = useState(false);
+   const handleOnChangePassword = (e) => {
+     setPassword(e.target.value);
+   };
+   const handleOnChangeConfirmPassword = (e) => {
+     setConfirmPassword(e.target.value); 
+   };
 
-  const handleOnChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
+   const handleOnChangeEmail = (e) => {
+     setEmail(e.target.value);
+   };
 
-  const handleOnChangeEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleOnKeyUpEmail = () => {
-    emailValidation();
-  };
-
-  const handleOnKeyUpPassword = () => {
-    passwordValidation();
-  };
-
-  //onBlur la de khi user sau khi out focus khoi email input thi se thuc hien emailValidation()
-  const handleOnBlurEmail = () => {
-    emailValidation();
-  };
-
-  const handleOnBlurPassword = () => {
-    passwordValidation();
-   
-  };
-
+   const handleOnKeyUpEmail = () => {
+     emailValidation();
+   };
   
+   const handleOnKeyUpPassword = (e) => {
+     passwordValidation(e);
+   };
+    
+   const handleOnKeyUpConfirmPassword = (e) => {
+     confirmPasswordValidation(e);
+   };
 
-  const emailValidation = () => {
-    const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
-    if (!regEx.test(email) && email !== "") {
-      setMessage("Email is Not Valid");
-    } else {
-      setMessage("");
-    }
-  };
+  const handleOnBlurEmail = () => { 
+    emailValidation()
+  }
 
+   const handleOnBlurPassword = (e) => {
+     passwordValidation(e);
+   };
+  
+   const handleOnBlurConfirmPassword = (e) => {
+     confirmPasswordValidation(e);
+    };
 
+ 
+
+   const emailValidation = () => {
+     const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+     if (!regEx.test(email) && email !== "") {
+       setMessage("Email is Not Valid");
+     } else {
+       setMessage("");
+     }
+   };
+
+   const confirmPasswordValidation = () => {
+     if (password === confirmPassword) {
+       setConfirmPasswordMessage("");
+     } else {
+       setConfirmPasswordMessage("Re-entered password doesn't match");
+     }
+   };
   const passwordValidation = (e) => {
-    const { value } = e.target;
-    const capsLetterCheck = /[A-Z]/.test(value);
-    const numberCheck = /[0-9]/.test(value);
-    const pwdLengthCheck = value.length >= 8;
-    const specialCharCheck = /[!@#$%^&*]/.test(value);
+  const { value } = e.target
+  const capsLetterCheck = /[A-Z]/.test(value);
+  const numberCheck = /[0-9]/.test(value);
+  const pwdLengthCheck = value.length >= 8;
+  const specialCharCheck = /[!@#$%^&*]/.test(value)
     setChecks({
       capsLetterCheck: capsLetterCheck,
       numberCheck: numberCheck,
@@ -70,33 +86,33 @@ function Login(props) {
       specialCharCheck: specialCharCheck,
     });
     setPWDRequisite(true);
-  };
+  }
 
-  
-  
   const checkAllowSubmit = () => {
-    if (
-      checks.capsLetterCheck &&
-      checks.numberCheck &&
-      checks.pwdLengthCheck &&
-      checks.specialCharCheck &&
-      message === ""
-    ) {
-      setAllowSubmit(true);
-    } else {
-      setAllowSubmit(false);
-    }
-  };
+      if (
+        checks.capsLetterCheck &&
+        checks.numberCheck &&
+        checks.pwdLengthCheck &&
+        checks.specialCharCheck &&
+        message === ""
+      ) {
+        setAllowSubmit(true);
+      } else {
+        setAllowSubmit(false);
+      }
+ 
+  }
 
-  const handleOnSubmit = async (e) => {
-    e.preventDefault();
-    const result = await api.login(email, password);
-    console.log("result", result);
-  };
+const handleOnSubmit = async (e) => {
+  e.preventDefault(); 
+  const result = await api.login(email, password);
+  console.log("result", result)
+}
 
   useEffect(() => {
     checkAllowSubmit();
   }, [message, checks]);
+
 
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -144,6 +160,7 @@ function Login(props) {
               />
             </div>
             <p className="text-red-600">{message}</p>
+            <br />
             <div>
               <label htmlFor="password" className="sr-only">
                 Password
@@ -171,6 +188,27 @@ function Login(props) {
                 specialCharFlag={checks.specialCharCheck ? true : false}
               />
             ) : null}
+          </div>
+
+          <div>
+            <label htmlFor="password" className="sr-only">
+              Re-entered Password
+            </label>
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="text"
+              value={confirmPassword}
+              onChange={handleOnChangeConfirmPassword}
+              // onFocus={handleFocus}
+              onBlur={handleOnBlurConfirmPassword}
+              onKeyUp={handleOnKeyUpConfirmPassword}
+              autoComplete="current-password"
+              required
+              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              placeholder="Re-enter your password"
+            />
+            <p className="text-red-600">{confirmPasswordMessage}</p>
           </div>
 
           <div className="flex items-center justify-between">
@@ -227,14 +265,11 @@ function Login(props) {
               </span>
               Sign in
             </button>
-            <p>
-              <Link to="/signup">Sign-up</Link> if you dont have an account
-            </p>
+            <Link to="/login">Log-in</Link> if you have an account
           </div>
         </form>
       </div>
     </div>
-  );
-}
+  );}
 
-export default Login
+export default SignUp

@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./routers/Private";
 import JoinRoomContainer from "./pages/JoinRoom/JoinRoom";
 import LoginContainer from "./pages/Login/Login";
+import SignUpContainer from "./pages/SignUp/SignUp";
 import HomeContainer from "./pages/Home/Home";
 import NotFound from "./pages/NotFound/NotFound";
 import SharedLayout from "./layouts/SharedLayout"
@@ -21,8 +22,10 @@ ReactDOM.render(
             <Route exact path="/join-room" element={<SharedLayout component={JoinRoomContainer} />} />
           </Route>
           <Route path="/login" element={<LoginContainer/>} />
+          <Route path="/signup" element={<SignUpContainer/>} />
           <Route path="/home" element={<SharedLayout component={HomeContainer} />} />
           <Route />
+          <Route path="*" element></Route>
         </Routes>
       </React.StrictMode>
     </div>

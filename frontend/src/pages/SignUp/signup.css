@@ -1,0 +1,30 @@
+*::before,
+*::after,
+* {
+  box-sizing: border-box;
+}
+
+.strength-meter {
+  position: relative;
+  height: 1.5rem;
+  width: 90%;
+  border: 3px solid gray;
+  border-radius: 20px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.strength-meter::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: 10%;
+  width: calc(1% * var(--strength));
+  background-color: greenyellow;
+  transition: width 200ms;
+}
+
+.reasons {
+  margin-top: 3px;
+}
