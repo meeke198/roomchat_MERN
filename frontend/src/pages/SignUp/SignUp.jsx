@@ -94,7 +94,8 @@ function SignUp(props) {
         checks.numberCheck &&
         checks.pwdLengthCheck &&
         checks.specialCharCheck &&
-        message === ""
+        message &&
+        confirmPasswordMessage === ""
       ) {
         setAllowSubmit(true);
       } else {
@@ -111,7 +112,7 @@ const handleOnSubmit = async (e) => {
 
   useEffect(() => {
     checkAllowSubmit();
-  }, [message, checks]);
+  }, [message, confirmPasswordMessage, checks]);
 
 
   return (
@@ -124,7 +125,7 @@ const handleOnSubmit = async (e) => {
             alt="Workflow"
           />
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
+            Sign Up for new account
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Or
@@ -265,7 +266,9 @@ const handleOnSubmit = async (e) => {
               </span>
               Sign in
             </button>
-            <Link to="/login">Log-in</Link> if you have an account
+            <p>
+              Have an account?<Link to="/login">Log-in</Link>
+            </p>
           </div>
         </form>
       </div>

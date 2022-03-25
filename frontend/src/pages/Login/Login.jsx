@@ -228,7 +228,7 @@ function Login(props) {
               Sign in
             </button>
             <p>
-              <Link to="/signup">Sign-up</Link> if you dont have an account
+              No account yet? <Link to="/signup">REGISTER HERE</Link>
             </p>
           </div>
         </form>
