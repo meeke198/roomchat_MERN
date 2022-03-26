@@ -212,34 +212,6 @@ const handleOnSubmit = async (e) => {
             <p className="text-red-600">{confirmPasswordMessage}</p>
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              />
-              <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-gray-900"
-              >
-                {" "}
-                Remember me{" "}
-              </label>
-            </div>
-
-            <div className="text-sm">
-              <a
-                href="#"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                {" "}
-                Forgot your password?{" "}
-              </a>
-            </div>
-          </div>
-
           <div>
             <button
               type="submit"
@@ -264,10 +236,15 @@ const handleOnSubmit = async (e) => {
                   />
                 </svg>
               </span>
-              Sign in
+              CREATE ACCOUNT
             </button>
-            <p>
-              Have an account?<Link to="/login">Log-in</Link>
+            <br/>
+            <p className="text-lg">
+              Have an account?<Link to="/login"> Log-in</Link>
+            </p>
+            <p className="text-xs text-gray-110">
+              By continuing, I confirm that I have read and accept the Terms and
+              Conditions and the Privacy Policy.
             </p>
           </div>
         </form>

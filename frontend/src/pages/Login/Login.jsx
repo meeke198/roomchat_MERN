@@ -225,9 +225,10 @@ function Login(props) {
                   />
                 </svg>
               </span>
-              Sign in
+              SIGN IN
             </button>
-            <p>
+            <br/>
+            <p className="text-s">
               No account yet? <Link to="/signup">REGISTER HERE</Link>
             </p>
           </div>
