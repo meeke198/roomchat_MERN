@@ -2,9 +2,11 @@ import "./signup.css";
 import {useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
 import PWDRequisite from '../Login/PWDRequisite';
-import api from "../../api/index"
+import api from "../../api/index";
+import { useNavigate } from "react-router-dom";
 
 function SignUp(props) {
+  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [pwdRequisite, setPWDRequisite] = useState(false);
@@ -25,6 +27,7 @@ function SignUp(props) {
    };
    const handleOnChangeConfirmPassword = (e) => {
      setConfirmPassword(e.target.value); 
+    //  confirmPasswordValidation();
    };
 
    const handleOnChangeEmail = (e) => {
@@ -67,10 +70,10 @@ function SignUp(props) {
    };
 
    const confirmPasswordValidation = () => {
-     if (password === confirmPassword) {
-       setConfirmPasswordMessage("");
-     } else {
+     if (password !== confirmPassword) {
        setConfirmPasswordMessage("Re-entered password doesn't match");
+     } else {
+       setConfirmPasswordMessage("");
      }
    };
   const passwordValidation = (e) => {
@@ -94,9 +97,10 @@ function SignUp(props) {
         checks.numberCheck &&
         checks.pwdLengthCheck &&
         checks.specialCharCheck &&
-        message &&
-        confirmPasswordMessage === ""
+        confirmPasswordMessage &&
+        message === ""
       ) {
+        console.log("check allow submit");
         setAllowSubmit(true);
       } else {
         setAllowSubmit(false);
@@ -104,14 +108,18 @@ function SignUp(props) {
  
   }
 
-const handleOnSubmit = async (e) => {
+const handleOnSubmit = (e) => {
   e.preventDefault(); 
-  const result = await api.login(email, password);
-  console.log("result", result)
+  let user = {
+    email: this.state.email,
+    password: this.state.password,
+  };
+  navigate("../Home/Home.jsx", { replace: true });
 }
 
   useEffect(() => {
     checkAllowSubmit();
+    console.log("use effect");
   }, [message, confirmPasswordMessage, checks]);
 
 
