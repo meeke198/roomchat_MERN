@@ -92,15 +92,16 @@ function SignUp(props) {
   }
 
   const checkAllowSubmit = () => {
+    console.log(checks, confirmPasswordMessage, message);
       if (
         checks.capsLetterCheck &&
         checks.numberCheck &&
         checks.pwdLengthCheck &&
         checks.specialCharCheck &&
-        confirmPasswordMessage &&
+        confirmPasswordMessage === "" &&
         message === ""
       ) {
-        console.log("check allow submit");
+        // console.log("check allow submit");
         setAllowSubmit(true);
       } else {
         setAllowSubmit(false);
@@ -119,7 +120,7 @@ const handleOnSubmit = (e) => {
 
   useEffect(() => {
     checkAllowSubmit();
-    console.log("use effect");
+    // console.log("use effect");
   }, [message, confirmPasswordMessage, checks]);
 
 
@@ -135,16 +136,6 @@ const handleOnSubmit = (e) => {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign Up for new account
           </h2>
-          {/* <p className="mt-2 text-center text-sm text-gray-600">
-            Or
-            <a
-              href="#"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
-            >
-              {" "}
-              start your 14-day free trial{" "}
-            </a>
-          </p> */}
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleOnSubmit}>
           <input type="hidden" name="remember" value="true" />

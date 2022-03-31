@@ -57,12 +57,11 @@ function Login(props) {
   };
 
 
-  const passwordValidation = (e) => {
-    const { value } = e.target;
-    const capsLetterCheck = /[A-Z]/.test(value);
-    const numberCheck = /[0-9]/.test(value);
-    const pwdLengthCheck = value.length >= 8;
-    const specialCharCheck = /[!@#$%^&*]/.test(value);
+  const passwordValidation = () => {
+    const capsLetterCheck = /[A-Z]/.test(password);
+    const numberCheck = /[0-9]/.test(password);
+    const pwdLengthCheck = password.length >= 8;
+    const specialCharCheck = /[!@#$%^&*]/.test(password);
     setChecks({
       capsLetterCheck: capsLetterCheck,
       numberCheck: numberCheck,
