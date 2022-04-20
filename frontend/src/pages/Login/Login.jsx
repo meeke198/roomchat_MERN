@@ -3,6 +3,9 @@ import {useState, useEffect} from 'react';
 import PWDRequisite from './PWDRequisite';
 import api from "../../api/index"
 import { Link } from "react-router-dom";
+import { Button, notification, Divider, Space } from "antd";
+
+
 
 function Login(props) {
   const [password, setPassword] = useState("");
@@ -96,6 +99,20 @@ function Login(props) {
   useEffect(() => {
     checkAllowSubmit();
   }, [message, checks]);
+
+
+  // const Context = React.createContext({ name: "Default" });
+
+// const Demo = () => {
+//   const [api, contextHolder] = notification.useNotification();
+
+  const openNotification = () => {
+    api.info({
+      message: `Log in successful!`,
+      description: `Hello user!`,
+      // placement,
+    });
+  };
 
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -203,6 +220,7 @@ function Login(props) {
           <div>
             <button
               type="submit"
+              onClick={() => openNotification()}
               className={`${
                 allowSubmit
                   ? "bg-indigo-700"
@@ -236,5 +254,4 @@ function Login(props) {
     </div>
   );
 }
-
-export default Login
+export default Login;
