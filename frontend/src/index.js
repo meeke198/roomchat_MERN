@@ -32,6 +32,7 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById("root")
 );
+// Means: Render the whole React App into the element with id=root 
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

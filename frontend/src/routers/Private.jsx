@@ -6,6 +6,7 @@ const PrivateRoute = () => {
   // If not, return element that will navigate to login page
   return auth ? <Outlet /> : <Navigate to="/login" />;
 };
+//Outlet - A component that renders the next match in a set of matches. 
 //v5
 // const PrivateRoute = ({ component: Component, ...rest }) => {
 //   const isLoggedIn = localStorage.getItem("access_token");
