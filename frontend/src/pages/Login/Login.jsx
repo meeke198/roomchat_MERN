@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react';
 import PWDRequisite from './PWDRequisite';
 import api from "../../api/index"
 import { Link } from "react-router-dom";
-import { Button, notification, Divider, Space } from "antd";
+import { notification} from "antd";
 
 
 
@@ -76,19 +76,7 @@ function Login(props) {
 
   
   
-  const checkAllowSubmit = () => {
-    if (
-      checks.capsLetterCheck &&
-      checks.numberCheck &&
-      checks.pwdLengthCheck &&
-      checks.specialCharCheck &&
-      message === ""
-    ) {
-      setAllowSubmit(true);
-    } else {
-      setAllowSubmit(false);
-    }
-  };
+  
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -97,6 +85,19 @@ function Login(props) {
   };
 
   useEffect(() => {
+    const checkAllowSubmit = () => {
+      if (
+        checks.capsLetterCheck &&
+        checks.numberCheck &&
+        checks.pwdLengthCheck &&
+        checks.specialCharCheck &&
+        message === ""
+      ) {
+        setAllowSubmit(true);
+      } else {
+        setAllowSubmit(false);
+      }
+    };
     checkAllowSubmit();
   }, [message, checks]);
 
@@ -106,13 +107,16 @@ function Login(props) {
 // const Demo = () => {
 //   const [api, contextHolder] = notification.useNotification();
 
-  const openNotification = () => {
-    api.info({
-      message: `Log in successful!`,
-      description: `Hello user!`,
-      // placement,
-    });
-  };
+ const openNotification = () => {
+   notification.open({
+     message: "Welcome to chatapp",
+     description:
+       "Logged in successfully",
+    //  onClick: () => {
+    //    console.log("Notification Clicked!");
+    //  },
+   });
+ };
 
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -208,7 +212,7 @@ function Login(props) {
 
             <div className="text-sm">
               <a
-                href="#"
+                href="./"
                 className="font-medium text-indigo-600 hover:text-indigo-500"
               >
                 {" "}
@@ -220,7 +224,7 @@ function Login(props) {
           <div>
             <button
               type="submit"
-              onClick={() => openNotification()}
+              onClick={openNotification}
               className={`${
                 allowSubmit
                   ? "bg-indigo-700"

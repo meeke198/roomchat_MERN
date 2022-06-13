@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 // import reportWebVitals from "./reportWebVitals";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./routers/Private";
 import JoinRoomContainer from "./pages/JoinRoom/JoinRoom";
