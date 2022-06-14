@@ -1,4 +1,3 @@
-
 import { Layout, Menu } from "antd";
 import {
   MenuUnfoldOutlined,
@@ -14,8 +13,8 @@ import { useNavigate } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
 
 function SharedLayout(props) {
-    const { component: Component } = props 
-  console.log("sharedlayout props", props)
+  const { component: Component } = props;
+  console.log("sharedlayout props", props);
   const [collapsed, setCollapsed] = useState(false);
   console.log("props", props);
   const toggle = () => {
@@ -23,7 +22,7 @@ function SharedLayout(props) {
   };
   const navigate = useNavigate();
   const onClickMenu = (data) => {
-    // console.log("data", data)
+    console.log("data", data)
     navigate(data.key);
   };
   return (
@@ -74,4 +73,4 @@ function SharedLayout(props) {
   );
 }
 
-export default SharedLayout
+export default SharedLayout;
