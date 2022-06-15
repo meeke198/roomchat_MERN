@@ -40,7 +40,7 @@ function SharedLayout(props) {
           <div className="logo">
             <img
               className="logo-img w-17 h-20"
-              src="https://homi-seeds.s3.us-east-2.amazonaws.com/logowhatsup.png"
+              src="https://homi-seeds.s3.us-east-2.amazonaws.com/logoWhatsup.png"
               alt=""
             />
           </div>
@@ -52,16 +52,19 @@ function SharedLayout(props) {
           >
             <Menu.Item
               className="header_icon"
+              onClick={onClickMenu}
               key="/home"
               icon={<BiMessageDots className="icon" />}
             />
             <Menu.Item
               className="header_icon"
+              onClick={onClickMenu}
               key="/join-room"
               icon={<AiOutlineUserAdd className="icon" />}
             />
             <Menu.Item
               className="header_icon"
+              onClick={onClickMenu}
               key="/setting"
               icon={<CgProfile className="icon" />}
             />
@@ -70,13 +73,13 @@ function SharedLayout(props) {
         <Layout>
           <Sider className="site-layout-background" width={200}>
             <Menu>
-              <Menu.Item key="/home" onClick={onClickMenu} icon={<HomeOutlined />}>
+              <Menu.Item key="/home" icon={<HomeOutlined />}>
                 Home
               </Menu.Item>
-              <Menu.Item key="/join-room" onClick={onClickMenu} icon={<WechatOutlined />}>
+              <Menu.Item key="/join-room" icon={<WechatOutlined />}>
                 Room Chat
               </Menu.Item>
-              <Menu.Item key="/setting" onClick={onClickMenu} icon={<SettingOutlined />}>
+              <Menu.Item key="/setting" icon={<SettingOutlined />}>
                 Setting
               </Menu.Item>
             </Menu>

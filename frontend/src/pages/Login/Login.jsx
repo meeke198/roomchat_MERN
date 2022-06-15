@@ -108,10 +108,11 @@ function Login(props) {
 //   const [api, contextHolder] = notification.useNotification();
 
  const openNotification = () => {
-   notification.open({
-     message: "Welcome to chatapp",
+   notification.success({
+     message: "Welcome to Whatsup",
      description:
        "Logged in successfully",
+    
     //  onClick: () => {
     //    console.log("Notification Clicked!");
     //  },
