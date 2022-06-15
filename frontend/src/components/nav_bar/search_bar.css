@@ -1,0 +1,23 @@
+.searching-container {
+  display: flex;
+  align-items: center;
+  height: 5vh;
+  width: 25vw;
+  background: white;
+  padding: 10;
+  border-bottom-left-radius: 80px;
+  border-top-left-radius: 80px;
+  border-top-right-radius: 80px;
+  border-bottom-right-radius: 80px;
+  border-right: 0;
+  border: solid black 1px;
+}
+  .searching-input {
+    flex: 1;
+    height: 50%;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    margin-left: 20px;
+  }
+

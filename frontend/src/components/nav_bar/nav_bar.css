@@ -1,0 +1,21 @@
+
+  .logged-in-profile-icon {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+  /* background: #cee5d0; */
+  align-items: center;
+
+  }
+  
+  .logged-in-profile-icon {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding-left: 20px;
+    }
+  .logo-img {
+    width: 160px;
+    margin-right: 20px;
+  }

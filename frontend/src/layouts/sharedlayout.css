@@ -49,3 +49,24 @@
 .site-layout-background {
   background: #fff;
 }
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 15%;
+}
+.icon, .header_icon{
+color: #EFEAD8;
+width: 4em;
+height: 3em;
+text-decoration: none;
+border-bottom: none;
+}
+.icon:hover{
+color: #FFBD35;
+
+}
+.nav_menu{
+  align-items: center;
+}

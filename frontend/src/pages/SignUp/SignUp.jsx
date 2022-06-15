@@ -2,7 +2,7 @@ import "./signup.css";
 import {useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
 import PWDRequisite from '../Login/PWDRequisite';
-import api from "../../api/index";
+// import api from "../../api/index";
 import { useNavigate } from "react-router-dom";
 
 function SignUp(props) {
@@ -91,23 +91,7 @@ function SignUp(props) {
     setPWDRequisite(true);
   }
 
-  const checkAllowSubmit = () => {
-    console.log(checks, confirmPasswordMessage, message);
-      if (
-        checks.capsLetterCheck &&
-        checks.numberCheck &&
-        checks.pwdLengthCheck &&
-        checks.specialCharCheck &&
-        confirmPasswordMessage === "" &&
-        message === ""
-      ) {
-        // console.log("check allow submit");
-        setAllowSubmit(true);
-      } else {
-        setAllowSubmit(false);
-      }
  
-  }
 
 const handleOnSubmit = (e) => {
   e.preventDefault(); 
@@ -119,6 +103,22 @@ const handleOnSubmit = (e) => {
 }
 
   useEffect(() => {
+     const checkAllowSubmit = () => {
+       console.log(checks, confirmPasswordMessage, message);
+       if (
+         checks.capsLetterCheck &&
+         checks.numberCheck &&
+         checks.pwdLengthCheck &&
+         checks.specialCharCheck &&
+         confirmPasswordMessage === "" &&
+         message === ""
+       ) {
+         // console.log("check allow submit");
+         setAllowSubmit(true);
+       } else {
+         setAllowSubmit(false);
+       }
+     };
     checkAllowSubmit();
     // console.log("use effect");
   }, [message, confirmPasswordMessage, checks]);
