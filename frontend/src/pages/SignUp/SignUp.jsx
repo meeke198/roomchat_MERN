@@ -7,7 +7,9 @@ import { useNavigate } from "react-router-dom";
 
 function SignUp(props) {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [pwdRequisite, setPWDRequisite] = useState(false);
   const [checks, setChecks] = useState({
@@ -17,22 +19,10 @@ function SignUp(props) {
     specialCharCheck: false,
   })
 
-  const [email, setEmail] = useState("");
+ 
   const [message, setMessage] = useState("");
   const [confirmPasswordMessage, setConfirmPasswordMessage] = useState("");
  const [allowSubmit, setAllowSubmit] = useState(false);
-
-   const handleOnChangePassword = (e) => {
-     setPassword(e.target.value);
-   };
-   const handleOnChangeConfirmPassword = (e) => {
-     setConfirmPassword(e.target.value); 
-    //  confirmPasswordValidation();
-   };
-
-   const handleOnChangeEmail = (e) => {
-     setEmail(e.target.value);
-   };
 
    const handleOnKeyUpEmail = () => {
      emailValidation();
@@ -53,6 +43,10 @@ function SignUp(props) {
    const handleOnBlurPassword = (e) => {
      passwordValidation(e);
    };
+  
+  //  const handleOnBlurUsername = (e) => {
+  //    usernameValidation(e);
+  //  };
   
    const handleOnBlurConfirmPassword = (e) => {
      confirmPasswordValidation(e);
@@ -76,6 +70,13 @@ function SignUp(props) {
        setConfirmPasswordMessage("");
      }
    };
+  //  const confirmPasswordValidation = () => {
+  //    if (password !== confirmPassword) {
+  //      setConfirmPasswordMessage("Re-entered password doesn't match");
+  //    } else {
+  //      setConfirmPasswordMessage("");
+  //    }
+  //  };
   const passwordValidation = (e) => {
   const { value } = e.target
   const capsLetterCheck = /[A-Z]/.test(value);
@@ -95,6 +96,10 @@ function SignUp(props) {
 
 const handleOnSubmit = (e) => {
   e.preventDefault(); 
+  // axios("/api/users"){
+  //   body: JSON.stringtify({
+  //     username, email, password
+  //   })
   let user = {
     email: this.state.email,
     password: this.state.password,
@@ -141,6 +146,22 @@ const handleOnSubmit = (e) => {
           <input type="hidden" name="remember" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
+              <label htmlFor="userName" className="sr-only">
+                Username
+              </label>
+              <input
+                autoFocus
+                id="username"
+                name="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                type="text"
+                required
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Username"
+              />
+            </div>
+            <div>
               <label htmlFor="email-address" className="sr-only">
                 Email address
               </label>
@@ -149,7 +170,7 @@ const handleOnSubmit = (e) => {
                 id="email-address"
                 name="email"
                 value={email}
-                onChange={handleOnChangeEmail}
+                onChange={(e) => setEmail(e.target.value)}
                 onKeyUp={handleOnKeyUpEmail}
                 onBlur={handleOnBlurEmail}
                 type="email"
@@ -170,7 +191,7 @@ const handleOnSubmit = (e) => {
                 name="password"
                 type="text"
                 value={password}
-                onChange={handleOnChangePassword}
+                onChange={(e) => setPassword(e.target.value)}
                 // onFocus={handleFocus}
                 onBlur={handleOnBlurPassword}
                 onKeyUp={handleOnKeyUpPassword}
@@ -199,7 +220,7 @@ const handleOnSubmit = (e) => {
               name="confirmPassword"
               type="text"
               value={confirmPassword}
-              onChange={handleOnChangeConfirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               // onFocus={handleFocus}
               onBlur={handleOnBlurConfirmPassword}
               onKeyUp={handleOnKeyUpConfirmPassword}
@@ -237,7 +258,7 @@ const handleOnSubmit = (e) => {
               </span>
               CREATE ACCOUNT
             </button>
-            <br/>
+            <br />
             <p className="text-lg">
               Have an account?<Link to="/login"> Log-in</Link>
             </p>
@@ -249,6 +270,7 @@ const handleOnSubmit = (e) => {
         </form>
       </div>
     </div>
-  );}
+  );
+}
 
 export default SignUp

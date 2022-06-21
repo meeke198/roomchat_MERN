@@ -75,8 +75,6 @@ function Login(props) {
   };
 
   
-  
-  
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
