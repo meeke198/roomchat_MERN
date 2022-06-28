@@ -12,27 +12,27 @@ const User = require("../../models/User");
 
 
 // REGISTER
-// router.post("/signup", async (req, res) => {
-//   console.log(req);
-//   try {
-//     //generate new password
-//     const salt = await bcrypt.genSalt(10);
-//     const hashedPassword = await bcrypt.hash(req.body.password, salt);
+router.post("/signup", async (req, res) => {
+  console.log(req);
+  try {
+    //generate new password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-//     //create new user
-//     const newUser = new User({
-//       username: req.body.username,
-//       email: req.body.email,
-//       password: hashedPassword,
-//     });
+    //create new user
+    const newUser = new User({
+      username: req.body.username,
+      email: req.body.email,
+      password: hashedPassword,
+    });
 
-//     //save user and respond
-//     const user = await newUser.save();
-//     res.status(200).json(user);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+    //save user and respond
+    const user = await newUser.save();
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 // //LOGIN
 router.post("/login", async (req, res) => {

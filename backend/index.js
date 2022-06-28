@@ -1,10 +1,14 @@
 const express = require("express");
 const app = express();
+const jwt = require("jsonwebtoken")
 const mongoose = require("mongoose");
-const db = require("./config/keys").mongoURI;
+const bodyParser = require("body-parser");
+const Bcrypt = require("bcryptjs")
+const db = require("./models/User");
+const db_url = "mongodb://localhost:27017/roomchat_kha_hien";
 //connect to MongoDB using Mongoose
 mongoose
-  .connect(db, { useNewUrlParser: true })
+  .connect(db_url, { useNewUrlParser: true })
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch((err) => console.log(err));
 const users = require("./routes/api/users");
@@ -17,13 +21,14 @@ const cors = require('cors') //enable cors
 // const server = http.createServer(app);
 
 require("dotenv").config(); //de doc duoc file env bang cach process.env.abc
-const bodyParser = require("body-parser");
+
 const auth = require("./routes/api/auth");
 //body request tu front end gui xuong se chay qua cai code nay de parse ve dang json
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use("/auth", auth); //
+app.use("/api/users", users);
 // const io = socketio(server)
 // oninput.on('connection', socket => {
 //     console.log('New WS connection....')

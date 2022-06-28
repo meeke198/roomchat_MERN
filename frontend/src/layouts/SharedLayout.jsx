@@ -17,22 +17,23 @@ import "./sharedlayout.css";
 import { useNavigate } from "react-router-dom";
 // import NavBar from "../components/nav_bar/Nav_bar";
 // import SearchBar from "../components/nav_bar/Search_bar";
-const { Header, Sider} = Layout;
+const { Header, Sider, Content} = Layout;
 
 function SharedLayout(props) {
   const { component: Component } = props;
   console.log("sharedlayout props", props);
-  // const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
   console.log("props", props);
-  // const toggle = () => {
-  //   setCollapsed(!collapsed);
-  // };
+  const toggle = () => {
+    setCollapsed(!collapsed);
+  };
   const navigate = useNavigate();
   const onClickMenu = (data) => {
-    console.log("data", data);
+    // console.log("data", data)
     navigate(data.key);
   };
- 
+  //data la object { item, key, keyPath, domEvent } ma antd tu passed vo cho onclick function(check doc)
+
   return (
     <>
       <Layout className="h-screen">
@@ -72,7 +73,7 @@ function SharedLayout(props) {
         </Header>
         <Layout>
           <Sider className="site-layout-background" width={200}>
-            <Menu>
+            <Menu onClick={onClickMenu}>
               <Menu.Item key="/home" icon={<HomeOutlined />}>
                 Home
               </Menu.Item>
@@ -84,11 +85,27 @@ function SharedLayout(props) {
               </Menu.Item>
             </Menu>
           </Sider>
-          <Layout
-            style={{
-              padding: "0 24px 24px",
-            }}
-          ></Layout>
+          <Layout className="site-layout">
+            <Header className="site-layout-background" style={{ padding: 0 }}>
+              {React.createElement(
+                collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+                {
+                  className: "trigger ml-4 text-2xl",
+                  onClick: toggle,
+                }
+              )}
+            </Header>
+            <Content
+              className="site-layout-background"
+              style={{
+                margin: "24px 16px",
+                padding: 24,
+                minHeight: 280,
+              }}
+            >
+              <Component />
+            </Content>
+          </Layout>
         </Layout>
       </Layout>
     </>
