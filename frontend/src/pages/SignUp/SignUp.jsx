@@ -101,6 +101,7 @@ const handleOnSubmit = (e) => {
   //     username, email, password
   //   })
   let user = {
+    username: this.state.userName,
     email: this.state.email,
     password: this.state.password,
   };

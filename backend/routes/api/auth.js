@@ -13,7 +13,7 @@ const User = require("../../models/User");
 
 // REGISTER
 router.post("/signup", async (req, res) => {
-  console.log(req);
+  console.log(req.query);
   try {
     //generate new password
     const salt = await bcrypt.genSalt(10);
