@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken")
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const Bcrypt = require("bcryptjs")
-const db = require("./models/db.js");
 const db_url = "mongodb://localhost:27017/roomchat_kha_hien";
 const SECRET_JWT_CODE = process.env.SECRET_JWT_CODE
 //connect to MongoDB using Mongoose
