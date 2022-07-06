@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const Bcrypt = require("bcryptjs")
 const db_url = "mongodb://localhost:27017/roomchat_kha_hien";
 const SECRET_JWT_CODE = process.env.SECRET_JWT_CODE
+// require('./config/database'); //connect to database errors
 //connect to MongoDB using Mongoose
 mongoose
   .connect(db_url, { useNewUrlParser: true })
@@ -40,27 +41,4 @@ app.use("/api/users", users);
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
 
-// function fetchUserByToken(req) {
-//   return new Promise((resolve, reject => {
-//     if(req.headers && req.headers.authorization){
-//       let authorization = req.headers.authorization
-//       let decoded
-//      try{
-//        decoded = jwt.JsonWebToken.verify(authorization, SECRET_JWT_CODE)
-//      }catch(e){
-//        reject("Token not valid")
-//        return
-//      }
-//      let userId = decoded.id
-//      Database.User.findOne({_id: userId})
-//      .then((user) => {
-//        resolve(user)
-//      })
-//      .catch((err) => {
-//        reject("Token Error")
-//      })
-//     } else {
-//       reject("No token found")
-//     }
-//   }))
-// }
+// 
