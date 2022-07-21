@@ -36,7 +36,7 @@ router.post("/signup", async (req, res) => {
       { user_id: user._id, email, username },
       SECRET_JWT_CODE,
       {
-        expiresIn: "15m",
+        expiresIn: "20m",
       }
     );
     // save user token
@@ -87,15 +87,14 @@ router.post("/login", async (req, res) => {
       req.body.password,
       user.password
     );
-    !validPassword && res.status(400).json("Incorrect username or password.");
+    !validPassword && res.status(400).json("Incorrect password.");
     if (user && validPassword) {
       // Create token
       const token = jwt.sign(
         { user_id: user._id, email: user.email },
         SECRET_JWT_CODE,
         {
-          //bo them username vo payload duoc khong? co can thiet khong
-          expiresIn: "15m",
+          expiresIn: "20m",
         }
       );
 
