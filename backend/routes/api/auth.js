@@ -13,7 +13,7 @@ router.post("/signup", async (req, res) => {
   try {
     const email = await User.findOne({ email: req.body.email }).exec(); //exec convert kwa findone thanh promise
     const username = await User.findOne({ username: req.body.username }).exec();
-    // console.log({email, userName});
+    console.log({email, username, req, res});
     if (email || username) {
       return res
         .status(400)

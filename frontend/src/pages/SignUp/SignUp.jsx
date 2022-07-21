@@ -1,9 +1,10 @@
 import "./signup.css";
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import PWDRequisite from '../Login/PWDRequisite';
+import PWDRequisite from "../Login/PWDRequisite";
 // import api from "../../api/index";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"
 
 function SignUp(props) {
   const navigate = useNavigate();
@@ -17,59 +18,56 @@ function SignUp(props) {
     numberCheck: false,
     pwdLengthCheck: false,
     specialCharCheck: false,
-  })
+  });
 
- 
   const [message, setMessage] = useState("");
   const [confirmPasswordMessage, setConfirmPasswordMessage] = useState("");
- const [allowSubmit, setAllowSubmit] = useState(false);
+  const [allowSubmit, setAllowSubmit] = useState(false);
 
-   const handleOnKeyUpEmail = () => {
-     emailValidation();
-   };
-  
-   const handleOnKeyUpPassword = (e) => {
-     passwordValidation(e);
-   };
-    
-   const handleOnKeyUpConfirmPassword = (e) => {
-     confirmPasswordValidation(e);
-   };
+  const handleOnKeyUpEmail = () => {
+    emailValidation();
+  };
 
-  const handleOnBlurEmail = () => { 
-    emailValidation()
-  }
+  const handleOnKeyUpPassword = (e) => {
+    passwordValidation(e);
+  };
 
-   const handleOnBlurPassword = (e) => {
-     passwordValidation(e);
-   };
-  
+  const handleOnKeyUpConfirmPassword = (e) => {
+    confirmPasswordValidation(e);
+  };
+
+  const handleOnBlurEmail = () => {
+    emailValidation();
+  };
+
+  const handleOnBlurPassword = (e) => {
+    passwordValidation(e);
+  };
+
   //  const handleOnBlurUsername = (e) => {
   //    usernameValidation(e);
   //  };
-  
-   const handleOnBlurConfirmPassword = (e) => {
-     confirmPasswordValidation(e);
-    };
 
- 
+  const handleOnBlurConfirmPassword = (e) => {
+    confirmPasswordValidation(e);
+  };
 
-   const emailValidation = () => {
-     const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
-     if (!regEx.test(email) && email !== "") {
-       setMessage("Email is Not Valid");
-     } else {
-       setMessage("");
-     }
-   };
+  const emailValidation = () => {
+    const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+    if (!regEx.test(email) && email !== "") {
+      setMessage("Email is Not Valid");
+    } else {
+      setMessage("");
+    }
+  };
 
-   const confirmPasswordValidation = () => {
-     if (password !== confirmPassword) {
-       setConfirmPasswordMessage("Re-entered password doesn't match");
-     } else {
-       setConfirmPasswordMessage("");
-     }
-   };
+  const confirmPasswordValidation = () => {
+    if (password !== confirmPassword) {
+      setConfirmPasswordMessage("Re-entered password doesn't match");
+    } else {
+      setConfirmPasswordMessage("");
+    }
+  };
   //  const confirmPasswordValidation = () => {
   //    if (password !== confirmPassword) {
   //      setConfirmPasswordMessage("Re-entered password doesn't match");
@@ -78,11 +76,11 @@ function SignUp(props) {
   //    }
   //  };
   const passwordValidation = (e) => {
-  const { value } = e.target
-  const capsLetterCheck = /[A-Z]/.test(value);
-  const numberCheck = /[0-9]/.test(value);
-  const pwdLengthCheck = value.length >= 8;
-  const specialCharCheck = /[!@#$%^&*]/.test(value)
+    const { value } = e.target;
+    const capsLetterCheck = /[A-Z]/.test(value);
+    const numberCheck = /[0-9]/.test(value);
+    const pwdLengthCheck = value.length >= 8;
+    const specialCharCheck = /[!@#$%^&*]/.test(value);
     setChecks({
       capsLetterCheck: capsLetterCheck,
       numberCheck: numberCheck,
@@ -90,45 +88,61 @@ function SignUp(props) {
       specialCharCheck: specialCharCheck,
     });
     setPWDRequisite(true);
-  }
-
- 
-
-const handleOnSubmit = (e) => {
-  e.preventDefault(); 
-  // axios("/api/users"){
-  //   body: JSON.stringtify({
-  //     username, email, password
-  //   })
-  let user = {
-    username: this.state.userName,
-    email: this.state.email,
-    password: this.state.password,
   };
-  navigate("../Home/Home.jsx", { replace: true });
-}
 
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    const result = await fetch("http://localhost:5001/api/auth/signup", {
+           method: "POST",
+           headers: {
+             "Content-Type": "application/json",
+           },
+           body: JSON.stringify({
+             username,
+             email,
+             password,
+           }),
+         })
+           .then((res) => res.json())
+           .then((data) => {
+            //  let newUser = data;
+             console.log(data);
+           })
+           .catch((err) => {
+             console.log(err);
+           });
+    navigate("../home", { replace: true });
+  };
+  // axios.post('/user', {
+  //     firstName: 'Fred',
+  //     lastName: 'Flintstone'
+  //   })
+  //   .then(function (response) {
+  //     console.log(response);
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
   useEffect(() => {
-     const checkAllowSubmit = () => {
-       console.log(checks, confirmPasswordMessage, message);
-       if (
-         checks.capsLetterCheck &&
-         checks.numberCheck &&
-         checks.pwdLengthCheck &&
-         checks.specialCharCheck &&
-         confirmPasswordMessage === "" &&
-         message === ""
-       ) {
-         // console.log("check allow submit");
-         setAllowSubmit(true);
-       } else {
-         setAllowSubmit(false);
-       }
-     };
+    const checkAllowSubmit = () => {
+      console.log(checks, confirmPasswordMessage, message);
+      if (
+        checks.capsLetterCheck &&
+        checks.numberCheck &&
+        checks.pwdLengthCheck &&
+        checks.specialCharCheck &&
+        confirmPasswordMessage === "" &&
+        message === ""
+      ) {
+        // console.log("check allow submit");
+        setAllowSubmit(true);
+      } else {
+        setAllowSubmit(false);
+      }
+    };
     checkAllowSubmit();
     // console.log("use effect");
   }, [message, confirmPasswordMessage, checks]);
-
 
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -274,4 +288,4 @@ const handleOnSubmit = (e) => {
   );
 }
 
-export default SignUp
+export default SignUp;
