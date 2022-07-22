@@ -92,37 +92,41 @@ function SignUp(props) {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    const result = await fetch("http://localhost:5001/api/auth/signup", {
-           method: "POST",
-           headers: {
-             "Content-Type": "application/json",
-           },
-           body: JSON.stringify({
+    // const result = await fetch("http://localhost:5001/api/auth/signup", {
+    //        method: "POST",
+    //        headers: {
+    //          "Content-Type": "application/json",
+    //        },
+    //        body: JSON.stringify({
+    //          username,
+    //          email,
+    //          password,
+    //        }),
+    //      })
+    //        .then((res) => res.json())
+    //        .then((data) => {
+    //         //  let newUser = data;
+    //          console.log(data);
+    //        })
+    //        .catch((err) => {
+    //          console.log(err);
+    //        });
+
+    const result = await axios.post("http://localhost:5001/api/auth/signup", {
              username,
              email,
              password,
-           }),
-         })
-           .then((res) => res.json())
-           .then((data) => {
-            //  let newUser = data;
-             console.log(data);
+           })
+           .then((res) => {
+            //  let newUser = res;
+             console.log(res.data);
            })
            .catch((err) => {
              console.log(err);
            });
     navigate("../home", { replace: true });
   };
-  // axios.post('/user', {
-  //     firstName: 'Fred',
-  //     lastName: 'Flintstone'
-  //   })
-  //   .then(function (response) {
-  //     console.log(response);
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
+
   useEffect(() => {
     const checkAllowSubmit = () => {
       console.log(checks, confirmPasswordMessage, message);
