@@ -136,7 +136,8 @@ function SignUp(props) {
         checks.pwdLengthCheck &&
         checks.specialCharCheck &&
         confirmPasswordMessage === "" &&
-        message === ""
+        message === "" &&
+        confirmPassword === password
       ) {
         // console.log("check allow submit");
         setAllowSubmit(true);
@@ -180,6 +181,7 @@ function SignUp(props) {
                 placeholder="Username"
               />
             </div>
+            <br />
             <div>
               <label htmlFor="email-address" className="sr-only">
                 Email address
